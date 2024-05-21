@@ -3,7 +3,9 @@ export class SFQuery {
     private conditions: string[]
     private fieldList: Set<string>;
     private numberOfRows: number | undefined;
+    private offsetField: number | undefined;
     private order: string | undefined;
+    private group: string | undefined;
     private queryParts: string[];
     private query: string;
 
@@ -28,9 +30,17 @@ export class SFQuery {
         this.numberOfRows = limit
         return this
     }
+    public offset(limit: number) {
+        this.offsetField = limit
+        return this
+    }
     public orderBy(filed: string, sort: 'ASC' | 'DESC') {
         this.order = `${filed} ${sort}`
         return this
+    }
+    public groupBy(field: string) {
+        this.group = `${field}`;
+        return this;
     }
 
     public whereIn(filed: string, values: string[]) {
@@ -51,7 +61,7 @@ export class SFQuery {
         }
         return ''
     };
-
+    
 
     public build() {
         this.queryParts = []
@@ -62,8 +72,10 @@ export class SFQuery {
 
         this.conditions.length && this.queryParts.push(this.buildConditions())
 
+        this.group && this.queryParts.push(`GROUP BY ${this.group}`)
         this.order && this.queryParts.push(`ORDER BY ${this.order}`)
 
+        this.offsetField && this.queryParts.push(`OFFSET ${this.offsetField}`)
         this.numberOfRows && this.queryParts.push(`LIMIT ${this.numberOfRows}`)
 
         this.query = this.queryParts.join(' ')
