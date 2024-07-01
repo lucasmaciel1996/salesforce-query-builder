@@ -75,9 +75,10 @@ export class SFQuery {
         this.group && this.queryParts.push(`GROUP BY ${this.group}`)
         this.order && this.queryParts.push(`ORDER BY ${this.order}`)
 
-        this.offsetField && this.queryParts.push(`OFFSET ${this.offsetField}`)
         this.numberOfRows && this.queryParts.push(`LIMIT ${this.numberOfRows}`)
 
+        
+        Number.isInteger(this.offsetField) && this.queryParts.push(`OFFSET ${this.offsetField}`);
         this.query = this.queryParts.join(' ')
 
         return this.query

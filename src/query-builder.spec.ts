@@ -25,7 +25,7 @@ describe("SFQuery", () => {
                 .offset(10)
                 .limit(20)
                 .build(),
-            expected: "SELECT Id,Name FROM Contact OFFSET 10 LIMIT 20",
+            expected: "SELECT Id,Name FROM Contact LIMIT 20 OFFSET 10",
         },
         {
             query: new SFQuery("Contact")

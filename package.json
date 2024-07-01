@@ -1,6 +1,6 @@
 {
   "name": "salesforce-query-builder",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "QueryBuilder- (soql)(@SalesForce)",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -10,6 +10,7 @@
     "dev": "node --watch src/index.ts",
     "build": "rm -rf build && tsc",
     "prepare": "npm run build",
+    "deploy": " npm publish --access public",
     "test": "vitest run"
   },
   "devDependencies": {
